@@ -1,0 +1,80 @@
+run mongod then run mongo, but before make sure you have /data/db folder (e.g. sudo mkdir /data then sudo mkdir /data/dir) with 
+sudo chmod -R 777 /data/db privilege to the user
+
+sudo service mongod start
+sudo service mongod stop
+sudo service mongod restart
+sudo service mongod status
+
+sudo systemctl start mongod
+sudo systemctl status mongod
+...
+
+
+mongosh "mongodb+srv://cluster0.jfo8s.mongodb.net/myFirstDatabase?retryWrites=true" --username youssef
+mongosh																																									
+
+use users #it can start with a database or switch focus to it
+db
+show dbs #users db won't appear until you insert something inside
+db.employees.insert({"name": "youssef"}) #adds 1 record
+db.employee.insert({"name":"Samir", "surname":"Dirani"}) #adds 1 record
+db.employee.insert([{"name":"Fadi"}, {"name":"Karim"}]) #adds 2 records
+
+show dbs 
+db.dropDatabase()
+
+db.createCollection("employee")
+show collections
+db.employee.drop()
+
+var names = [{...}, {...}]
+db.employees.insert(names)
+
+db.employee.find() #shows all records
+db.employee.find({"name":"Fadi"}) #shows only specific
+
+db.employee.find().pretty()
+
+db.employee.update({"abc":"ABC"}, {$set:{"abc":"DEF"}}) #deprecated
+db.employee.update({"abc":"DEF"}, {$set:{"a":"A"}}) #deprecated - actually the {"a":"A"} is added to the same record
+
+db.employee.updateOne({"name":"Ahmad"}, {$set:{"name":"Akram"}}) #updates the first match
+db.employee.updateMany({"name":"Ahmad"}, {$set:{"name":"Akram"}}) #updates all matches
+db.employee.updateOne({"name":"Akram", "surname":"Dirani"}, {$set:{"name":"Ahmad"}}) #many AND conditions
+db.employee.updateOne({"name":"Akram"}, {$set:{"a":"A"}}) #actually the {"a":"A"} is added to the same record
+
+N.B: both key and value are case sensitive
+
+db.employee.deleteOne({"name":"Akram"}) #deletes only 1 occurrence
+db.employee.deleteMany({"name":"Akram"}) #deletes all occurrences
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
