@@ -9,6 +9,10 @@ git config --global --list
 git config --help
 git help config
 
+#I think this can take effect here 		~/.gitconfig
+
+
+
 git init
 
 ls -la
@@ -213,5 +217,24 @@ To create a new branch after just making "git init", you can do either of the fo
 
 #To list the files that were added in a commit
 git diff-tree --no-commit-id --name-status -r bd61ad98  #this last is the hash
+
+
+#To make git work on an Apache Server you'll need to 		enable dav		 to actively push changes over http
+#You may check the file 		how to run a web server 		for more.
+#Another method is probably to use 		Smart HTTP
+#this path might be useful
+/usr/lib/git-core/git-http-backend
+
+
+
+
+
+
+
+
+
+
+
+
 
 
