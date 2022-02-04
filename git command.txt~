@@ -236,11 +236,6 @@ git config --global user.email "diraniyoussef@gmail.com"
 Then use :
 gh ath login (using GitHub CLI according to https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git)
 Then is asked for username enter it.
-When asked for password PASTE THE TOKEN
-Then to be able to do all operations without git bothering you by asking for the credentials every time, just :
-git config --global credential.helper store
-
-And I guess that's it.
 
 
 

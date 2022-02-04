@@ -1,0 +1,54 @@
+# After you install apache server (probably through xamp), 
+
+# To start the web server :
+sudo systemctl start apache2
+
+#to get the status
+sudo systemctl status apache2
+
+#to stop the server
+sudo systemctl stop apache2
+
+#to restart the server
+sudo systemctl restart apache2
+
+#The folder of the apache server is here :
+/var/www/html
+
+
+#these folders can be of use :
+/usr/lib/apache2/modules
+/etc/apache2/mods-available
+#unfortunately I didn't find this folder (maybe because of my installation) :
+/usr/local/apache2
+#nevertheless I created it.
+
+
+#To make git work on an Apache Server you'll need to enable dav to actively push changes over http
+https://mirrors.edge.kernel.org/pub/software/scm/git/docs/howto/setup-git-server-over-http.txt
+#and then you might want to use this 
+git http-push http://localhost/my_git_project master #not sure
+
+- httpd.conf was not found in /etc/apache2/. I created it and added 		Include /etc/apache2/httpd.conf		in /etc/apache2/apache2.conf
+- In httpd.conf I added 		LoadModule dav_fs_module /usr/lib/apache2/modules/mod_dav_fs.so
+- In /etc/apache2/apache2.conf in <Directory /var/www/> I added Dav On
+- sudo chown -R www-data:www-data /var/www/html/   #www-data is the user and group found in etc/apache2/envvars
+
+#Unfortunately all this didn't let the apacher server start; it threw the following error :
+#Invalid command 'Dav', perhaps misspelled or defined by a module not included in the server configuration
+
+
+#Another method is probably to use 		Smart HTTP
+https://git-scm.com/book/en/v2/Git-on-the-Server-Smart-HTTP
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+run mongod then run mongo, but before make sure you have /data/db folder (e.g. sudo mkdir /data then sudo mkdir /data/dir) with 
+sudo chmod -R 777 /data/db privilege to the user
+
+sudo service mongod start
+sudo service mongod stop
+sudo service mongod restart
+sudo service mongod status
+
+sudo systemctl start mongod
+sudo systemctl status mongod
+...
+
+
+mongosh "mongodb+srv://cluster0.jfo8s.mongodb.net/myFirstDatabase?retryWrites=true" --username youssef
+mongosh																																									
+
+use users #it can start with a database or switch focus to it
+db
+show dbs #users db won't appear until you insert something inside
+use users
+show collections
+
+db.employees.insert({"name": "youssef"}) #adds 1 record
+db.employee.insert({"name":"Samir", "surname":"Dirani"}) #adds 1 record
+db.employee.insert([{"name":"Fadi"}, {"name":"Karim"}]) #adds 2 records
+db.employee.insertOne({"name":"Fadi", "surname":"barbas", talent:"musician"})
+db.employee.insertMany([{"name":"Kukou"}, {"name":"Frusou"}])
+
+show dbs 
+db.dropDatabase()
+
+db.createCollection("employee")
+show collections
+db.employee.drop()
+
+var names = [{...}, {...}]
+db.employees.insert(names)
+
+db.employee.find() #shows all records
+db.employee.find({"name":"Fadi"}) #shows only specific
+db.employee.find({"name":"Fadi"}).limit2) #shows the first 2 matches
+
+db.employee.find().pretty()
+
+db.employee.find().count() #returns the value of the found documents.
+
+db.employee.find().sort({EQ:-1}) #sorts based on decreasing order for EQ
+db.employee.find().sort({EQ:1}) #sorts based on increasing order for EQ
+
+db.employee.find().forEach(function(doc){print("job is " + doc.job)})
+
+db.employee.updateOne({"name":"Ahmad"}, {$set:{"name":"Akram"}}) #updates the first match
+db.employee.updateMany({"name":"Ahmad"}, {$set:{"name":"Akram"}}) #updates all matches
+db.employee.updateOne({"name":"Akram", "surname":"Dirani"}, {$set:{"name":"Ahmad"}}) #many AND conditions
+db.employee.updateOne({"name":"Akram"}, {$set:{"a":"A"}}) #Akram already exists, "a" didn't, nevertheless the {"a":"A"} is added to the same record.
+db.employee.updateOne({"name":"Fadia"}, {$set:{"IQ":9}}, {upsert:true}) #if Fadia didn't exist, a new record will be inserted of name Fadia and IQ 9.
+
+db.employee.updateMany({$or:[{"a":"A"}, {name:"Fadi"}]}, {$set:{"EQ":15}})
+
+db.employee.updateOne({"name":"Juju"}, {$inc:{"EQ":5}}) #this increments the value of EQ if it already exists, but adds it with value 5 if it didn't.
+
+db.employee.updateOne({"name":{$exists:true}}, {$set:{"EQ":5}})
+db.employee.updateOne({"name":{$exists:false}}, {$set:{"EQ":20}})
+
+db.employee.updateOne({"EQ":{$lt:21,$gte:14}}, {$set:{"Estimation":"average"}}) #if EQ less than 21 and greater than or equal 14
+
+db.employee.updateOne({"name":"Fadi"}, {$unset:{"surname":"hisho", "EQ":8}}) #to delete 2 fields "surname" and "EQ" in Fadi's record. "hisho" and 8 are dummmy values.
+
+db.employee.updateOne({"name":"Juju"}, {$rename:{"EQ":"Emotional Q"}}) #to rename a field key
+
+N.B: both key and value are case sensitive
+
+db.employee.deleteOne({"name":"Akram"}) #deletes only 1 occurrence
+db.employee.deleteMany({"name":"Akram"}) #deletes all occurrences
+
+
+db.currentOp() #to get some info about where the server is running and so on.
+
+#https://docs.mongodb.com/manual/core/index-ttl/
+db.coll.createIndex( { "IQ":1 }, { expireAfterSeconds: 30 } ) #this deletes the following document after 30 seconds of being created. IQ is a TTL index
+db.docs.insertOne({IQ:new Date(), "name": "david"}) #this document will be deleted since it holds the index IQ with a Date type
+
+db.coll.getIndexes()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
